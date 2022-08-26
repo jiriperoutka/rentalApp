@@ -1,21 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
-
-const test = ref(route.query.search ? route.query.search : ``);
-
-const { data: dataItems, refresh, error } = useAsyncData(
-  new Date().getMilliseconds().toString(),
-  async () => {
-    let response;
-    try {
-      console.log(test.value);
-      response = await $fetch(`http://localhost:3001/items/search/${test.value}`);
-    } catch (e) {}
-    return response;
-  }
-);
-
-watch(test, refresh());
+const { data: dataItems, pending, error } = await useFetch(() => `http://localhost:3001/items/search/${route.query.search ? route.query.search : ``}`);
 </script>
 
 <template>
