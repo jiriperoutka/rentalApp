@@ -1,9 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
 const { data: dataItems, pending, error } = await useFetch(() => `http://localhost:3001/items/search/${route.query.search ? route.query.search : ``}`);
-);
-
-watch(test, refresh());
 </script>
 
 <template>
